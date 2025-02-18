@@ -6,13 +6,23 @@ use App\Models\User;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Hash;
 use Livewire\Attributes\On;
+use Livewire\Attributes\Validate;
 use Livewire\Component;
 
 class CreateUser extends Component
 {
 
     public $title= "create user";
-    public $name,$email,$password;
+
+    #[Validate('required|min:4')]
+    public $name;
+
+    #[Validate('required|unique:users,email')]
+    public $email;
+
+    #[Validate('required')]
+    public $password;
+
     public $editMode = false;
     public $editingUserId;
 
@@ -20,6 +30,7 @@ class CreateUser extends Component
 
     public function createUser()
     {
+        $this->validate();
         User::query()->create([
             'name' => $this->name,
             'email' => $this->email,
@@ -41,6 +52,10 @@ class CreateUser extends Component
 
     public function updateUser()
     {
+        $this->validate([
+            'name' => 'required|min:4',
+            'email' => 'required|unique:users,email,'.$this->editingUserId,
+        ]);
         $user=User::query()->find($this->editingUserId);
         $user->update([
             'name' => $this->name,

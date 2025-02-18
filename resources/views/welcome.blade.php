@@ -7,8 +7,8 @@
 {{--    @vite('resources/css/app.css')--}}
 </head>
 <body >
-home page
-<livewire:create-post/>
+
+{{--<livewire:create-post/>--}}
 {{--@vite('resources/js/app.js')--}}
 </body>
 </html>

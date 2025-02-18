@@ -3,7 +3,9 @@
 namespace App\Livewire\Users;
 
 use App\Models\User;
+use Livewire\Attributes\Layout;
 use Livewire\Attributes\On;
+use Livewire\Attributes\Title;
 use Livewire\Component;
 
 class UsersList extends Component
@@ -13,6 +15,8 @@ class UsersList extends Component
 //    {
 //
 //    }
+
+#[Layout('admin.master'),Title('panel page')]
     public function render()
     {
         $users= User::query()->get();
